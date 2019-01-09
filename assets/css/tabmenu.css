@@ -1,6 +1,6 @@
 .tab-menu
 {
-    list_style: none;
+    list-style: none;
     height: 80px;
 }
 .tab-menu li
@@ -24,25 +24,25 @@
 }
 .tab-menu li.menuitem1
 {
-    background-image: url(/assets/images/newbtn.bar.1.png);
+    background-image: url(../images/newbtn.bar.1.png);
 }
 .tab-menu li.menuitem2
 {
-    background-image: url(/assets/images/newbtn.bar.2.png);
+    background-image: url(../images/newbtn.bar.2.png);
 }
 .tab-menu li.menuitem3
 {
-    background-image: url(/assets/images/newbtn.bar.3.png);
+    background-image: url(../images/newbtn.bar.3.png);
 }
 .tab-menu li.menuitem4
 {
-    background-image: url(/assets/images/newbtn.bar.4.png);
+    background-image: url(../images/newbtn.bar.4.png);
 }
 .tab-menu li.menuitem5
 {
-    background-image: url(/assets/images/newbtn.bar.5.png);
+    background-image: url(../images/newbtn.bar.5.png);
 }
 .tab-menu li.menuitem6
 {
-    background-image: url(/assets/images/newbtn.bar.6.png);
+    background-image: url(../images/newbtn.bar.6.png);
 }
