@@ -7,50 +7,58 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/assets/css/tabmenu.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/tabmenu.css">
 	<title>탭메뉴</title>
     <script>
-        var tabMenu1 = {
-            $tabMenu : null,
-            $menuItems : null,
-            $selectMenuItem : null,
+        function TabMenu(selector) {
+            this.$tabMenu = null;
+            this.$menuItems = null;
+            this.$selectMenuItem = null;
 
-            // 요소 초기화
-            init:function()
-            {
-                this.$tabMenu = $("#tabMenu1");
-                this.$menuItems = this.$tabMenu.find("li");
-            },
-            // 이벤트 등록
-            initEvent:function()
-            {
-                var objThis = this;
-                this.$menuItems.on("click", function(){
-                    objThis.setSelectItem($(this));
-                });
-            },
-            // $menuItem에 해당하는 메뉴 아이템 선택하기
-            setSelectItem:function(){
-                // 기존 선택 메뉴 아이템을 비활성화 처리하기
-                if(this.$selectMenuItem)
-                {
-                    this.$selectMenuItem.removeClass("select");
-                }
-
-                // 신규 아이템 활성화 처리하기
-                this.$selectMenuItem = $menuItem;
-                this.$selectMenuItem.addClass("select");
-            }
+            this.init(selector);
+            this.initEvent();
         }
+
+
+        TabMenu.prototype.init = function (selector)
+        {
+            this.$tabMenu = $(selector);
+            this.$menuItems = this.$tabMenu.find("li");
+        }
+
+        TabMenu.prototype.initEvent = function()
+        {
+            var ObjThis = this;
+            this.$menuItems.on("click", function(){
+                objThis.setSelectItem($(this));
+            });
+        }
+
+        TabMenu.prototype.setSelectItem = function($menuItem)
+        {
+            if(this.$selectMenuItem)
+                this.$selectMenuItem.removeClass("select");
+
+            this.$selectMenuItem = $menuItem;
+            this.$selectMenuItem.addClass("select");
+        }
+
         $(document).ready(function(){
-            tabMenu1.init();
-            tabMenu1.initEvent();
+            var tabMenu1 = new TabMenu("#tabMenu1");
+            var tabMenu2 = new TabMenu("#tabMenu2");
         });
     </script>
 </head>
 <body>
-
 <ul class="tab-menu" id="tabMenu1">
+    <li class="menuitem1">google</li>
+    <li class="menuitem2">facebook</li>
+    <li class="menuitem3">pinterest</li>
+    <li class="menuitem4">twitter</li>
+    <li class="menuitem5">airbnb</li>
+    <li class="menuitem6">path</li>
+</ul>
+<ul class="tab-menu" id="tabMenu2">
     <li class="menuitem1">google</li>
     <li class="menuitem2">facebook</li>
     <li class="menuitem3">pinterest</li>
