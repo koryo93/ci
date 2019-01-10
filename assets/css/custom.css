@@ -1,0 +1,119 @@
+/* custom.css */
+.header
+{
+    padding:10px 15px 7px 15px;
+    background-color:#0969e0;
+    position:relative;
+}
+.header::before
+{
+    content:'';
+    height:1px;
+    width:100%;
+    position:absolute;
+    left:0;
+    bottom:0;
+    background-color:rgba(0,0,0,0.35);
+}
+.header a
+{
+    color:#fff;
+    font-size:15px;
+    font-weight:bold
+}
+.header .nav-menu a::after
+{
+    content:'';
+    width:1px;
+    height:11px;
+    background-color:rgba(255,255,255,0.5);
+    margin:0 6px;
+    display:inline-block
+}
+.header .nav-menu a:last-child::after
+{
+    display:none
+}
+.header .nav-menu a span
+{
+    display:inline-block;
+    padding:3px 6px;
+    border-radius:3px;
+}
+.header .nav-menu a.menuOn span
+{
+    background-color:rgba(0,0,0,0.5);
+}
+.form-control
+{
+    height:31px;
+    padding:6px 8px;
+    color:#111;
+    border-color:#e2e2e2;
+    box-shadow:none;
+    font-family:helvetica;
+}
+.search-setting
+{
+    position:relative;
+    margin:10px 0;
+    padding:10px 8px;
+    border:1px solid #666;
+    display:block;
+    overflow:hidden;
+}
+.search-setting::after
+{
+    content:'검색';
+    position:absolute;
+    display:inline-block;
+    top:-1px;
+    right:-1px;
+    color:#FFF;
+    font-size:12px;
+    padding:0 10px;
+    line-height:22px;
+    height:22px;
+    background-color:#4A6EDC;
+}
+table
+{
+    font-size:15px;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
+{
+    padding:4px 8px
+}
+.table
+{
+    border-top:2px solid #333;
+    border-bottom:1px solid #9e9e9e;
+}
+.table>thead>tr>th
+{
+    border-bottom:1px solid #9e9e9e;
+    font-size:13px;
+    padding:7px 8px;
+}
+.table>tbody>tr>td
+{
+    padding:7px
+}
+.pagination
+{
+    display: inline-block;
+    padding-left: 0;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+.footer
+{
+    position: fixed;
+    bottom:0;
+    margin: 15px 0 0 0;
+    padding: 8px;
+    background-color: #f7f7f7;
+    font-size:12px;
+    text-align: center;
+    border-top:1px solid #eaeaea
+}
