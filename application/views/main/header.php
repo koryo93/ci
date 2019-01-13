@@ -16,10 +16,10 @@
 <body>
 <div class="header">
     <span class="nav-menu">
-        <a href="<?=site_url();?>/board" <?php if(in_array($uri, $boardArr)) { echo 'class=menuOn'; } ?>>
+        <a href="<?=site_url();?>board" <?php if(in_array($uri, $boardArr)) { echo 'class=menuOn'; } ?>>
             <span>게시판</span>
         </a>
-        <a href=""#" <?php if(in_array($uri, $confArr)) { echo 'class=menuOn'; } ?>>
+        <a href="#" <?php if(in_array($uri, $confArr)) { echo 'class=menuOn'; } ?>>
             <span>환경설정</span>
         </a>
     </span>
