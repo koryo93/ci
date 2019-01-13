@@ -100,7 +100,7 @@ class Board_m extends CI_Model
         $this->db->delete('comment');
 
         $this->db->where_in('idx', explode(',', $idxs));
-        $this->db_delete('board');
+        $this->db->delete('board');
     }
 
     /**
