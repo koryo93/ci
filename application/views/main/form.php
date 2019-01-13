@@ -18,11 +18,11 @@
     </form>
 </div>
 
-<link rel="stylesheet" href="<?=base_url();?>/assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?=base_url();?>/assets/css/custom.css">
-<script src="<?=base_url();?>/assets/js/jquery-3.3.1.min.js"></script>
-<script src="<?=base_url();?>/assets/js/jquery.validate.min.js"></script>
-<script src="<?=base_url();?>/assets/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
+<link rel="stylesheet" href="<?=base_url();?>assets/css/custom.css">
+<script src="<?=base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+<script src="<?=base_url();?>assets/js/jquery.validate.js"></script>
+<script src="<?=base_url();?>assets/js/bootstrap.js"></script>
 <script type="text/javascript">
     var siteurl="<?=site_url();?>";
     <!-- jquery validate 플러그인으로 폼 입력 여부 검증 -->
