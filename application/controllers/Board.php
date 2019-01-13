@@ -5,10 +5,8 @@ class Board extends CI_Controller
 {
     function __construct()
     {
-        paranet::__construct();
-        $this->load->database();
+        parent::__construct();
         $this->load->model("board_m");
-        $this->load->helper(array('url', 'date'));
         $this->load->library('user_agent');
         $this->load->helper('cookie');
     }
@@ -18,7 +16,7 @@ class Board extends CI_Controller
      */
     public function index()
     {
-        delete_cookie('field');     // URL 이동 시 자동으로 쿠키 삭제하느 ㄴ코드
+        delete_cookie('field');     // URL 이동 시 자동으로 쿠키 삭제하는 코드
         delete_cookie('schVal');
         $idx = $this->input->get('idx', TRUE);
         $subject = $this->input->get('subject', TRUE);
@@ -42,44 +40,28 @@ class Board extends CI_Controller
 
         $this->load->library('pagination');
 
-        $config = array(
-            'first_url' => site_url() . '/board/index/page/1' . http_build_query($_GET),
-            'base_url' => site_url() . '/board/index/page',
-            'total_rows' => $this->board_m->getBoards('num_rows', '', '', $idx, $subject, $content),
-            'per_page' => 10,
-//          'use_page_numbers'=>TRUE,
-            'suffix' => '?' . http_build_query($_GET, '', '&'),
-            'full_tag_open' => "<ul class='pagination pagination-sm'>",
-            'full_tag_close' => "</ul>",
-            'num_tag_open' => "<li>",
-            "num_tag_close" => "</li>",
-            "cur_tag_open" => "<li class='disabled'><li class='active'<a href='#'>",
-            "cur_tag_close" => "<span class='sr-only'></span></a></li>",
-            "next_tag_open" => "<li>",
-            "next_tag_close" => "</li>",
-            "prev_tag_open" => "<li>",
-            "prev_tag_close" => "</li>",
-            "first_tag_open" => "<li>",
-            "first_tag_close" => "</li>",
-            "last_tag_open" => "<li>",
-            "last_tag_close" => "</li>",
-        );
+        $config['first_url'] = site_url() . '/board/index/page/1' . http_build_query($_GET);
+        $config['base_url'] = site_url() . '/board/index/page';
+        $config['total_rows'] = $this->board_m->getBoards('num_rows', '', '', $idx, $subject, $content);
+        $config['per_page'] = 10;
+//        $config['use_page_numbers'] = TRUE;
+        $config['suffix'] = '?' . http_build_query($_GET, '', '&');
 
         $this->pagination->initialize($config);
 
-        $data['pagenation'] = $this->pagination->create_links();
+        $data['pagination'] = $this->pagination->create_links();
         $data['num_rows'] = $config['total_rows'];
 
         $page = $this->uri->segment(4, 1);
         if ($page > 1)
             $offset = (($page / $config['per_page'])) * $config['per_page'];
         else
-            $offset = ($page - 1) * config['per_page'];
+            $offset = ($page - 1) * $config['per_page'];
 
         $data['list'] = $this->board_m->getBoards('', $offset, $config['per_page'], $idx, $subject, $content, $field, $sort);
-        $this->load->view('header');
-        $this->load->view('index', $data);
-        $this->load->view('bottom');
+        $this->load->view('main/header');
+        $this->load->view('main/index', $data);
+        $this->load->view('main/bottom');
     }
 
     /**
@@ -93,7 +75,7 @@ class Board extends CI_Controller
             $content = $this->input->post('content', TRUE);
             $this->board_m->updateBoard($idx, $subject, $content);
 
-            redirect('/board/desc/' . $idx);
+            redirect('board/desc/' . $idx);
             exit;
         } else {
             $idx = $this->uri->segment(3);
@@ -102,11 +84,11 @@ class Board extends CI_Controller
             $data["htmlTag"] = (object)array(
                 'header' => '심플 게시판<폼 상세>',
                 'btn' => "<input class='btn btn-sm btn-info', type='submit' value='수정'>
-                        <a class='btn btn-sm btn-success' href=" . site_url() . "/board>목록</a>
-                        <a class='btn btn-sm btn-danger' href=" . site_url() . "/board/deleteBoard/" . $this->uri->segment(3) . ">삭제</a>",
-        );
+                        <a class='btn btn-sm btn-success' href=" . site_url() . "board>목록</a>
+                        <a class='btn btn-sm btn-danger' href=" . site_url() . "board/deleteBoard/" . $this->uri->segment(3) . ">삭제</a>",
+            );
             // 댓글의 페이징 기능
-            $this->load->library('paginagion');
+            $this->load->library('pagination');
             $config = array(
                 'first_url' => site_url() . '/board/desc/' . $idx . "/",
                 'total_rows' => $this->board_m->getComments('num_rows', '', '', $idx),
@@ -138,15 +120,15 @@ class Board extends CI_Controller
             // mysql에서 limit 는 가져오는 row의 개수, offset은 몇번째 row 부터 가져올지 결정.
 
             if ($page > 1)
-                $offset = ((page / $config['per_page'])) * $config['per_page'];
+                $offset = (($page / $config['per_page'])) * $config['per_page'];
             else
-                $offet = ($page - 1) * $config['per_page'];
+                $offset = ($page - 1) * $config['per_page'];
 
             $data2['list'] = $this->board_m->getComments('', $offset, $config['per_page'], $idx);
-            $this->load->view('header');
-            $this->load->view('form', $data);
-            $this->load->view('comment', $data2);
-            $this->load->view('bottom');
+            $this->load->view('main/header');
+            $this->load->view('main/form', $data);
+            $this->load->view('main/comments', $data2);
+            $this->load->view('main/bottom');
         }
     }
 
@@ -172,13 +154,12 @@ class Board extends CI_Controller
             //  입력창인 경우 나타내는 header 타이틀과 버튼용 html tag
             $data['htmlTag'] = (object)array(
                 'header' => '심플게시판 <폼 입력>',
-                'btn' => '<a class="btn btn-sm btn-warning" onclick="autoInput()">자동입력</a>
-					<input class="btn btn-sm btn-info" type="submit" value="저장">
-					<a class="btn btn-sm btn-success" href=' . site_url() . '/board>목록</a>',
+                'btn' => '<input class="btn btn-sm btn-info" type="submit" value="저장">
+					<a class="btn btn-sm btn-success" href='.site_url().'board>목록</a>',
             );
-            $this->load->view('header');
-            $this->load->view('form', $data);
-            $this->load->view('bottom');
+            $this->load->view('main/header');
+            $this->load->view('main/form', $data);
+            $this->load->view('main/bottom');
         }
     }
 
@@ -189,7 +170,7 @@ class Board extends CI_Controller
     {
         $idx = $this->uri->segment(3);
         $this->board_m->deleteBoard($idx);
-        redirect("/board/index/");
+        redirect("board/index/");
     }
 
     /**
@@ -198,9 +179,9 @@ class Board extends CI_Controller
     public function deleteAll()
     {
         $idxs = $this->input->post('idxs');
-        $this->borad_m->delAll($idxs);
+        $this->board_m->delAll($idxs);
 
-        redirect('/board/index/');
+        redirect('board/index/');
     }
 
     /**
